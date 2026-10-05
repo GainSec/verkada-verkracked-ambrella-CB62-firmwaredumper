@@ -45,18 +45,13 @@ Verkada CB62-TE waiting in ROM USB-download mode:
 `cb62-amboot-header-probe` performs one fixed 32-bit read at `0x01400038`.
 `cb62-amboot-header-block-probe` performs one fixed, CRC-checked 64-byte read
 from `0x01400000`; it accepts no device address or length, refuses to overwrite
-its local output, sends no retries, and issues no trailing command. Its wire
-and safety analysis is in
-`docs/plans/2026-09-08-cb62-fixed-header-block-read-audit.md`.
+its local output, sends no retries, and issues no trailing command.
 `cb62-amboot-resident-bld-probe` performs the same two-stage read once for the
-fixed `0x34000`-byte known resident-image mapping at `0x01400000`. It has no
-caller-controlled target range; details are in
-`docs/plans/2026-09-08-cb62-fixed-resident-bld-read-audit.md`.
+fixed `0x34000`-byte known resident-image mapping at `0x01400000`. 
 `cb62-amboot-ptb-snapshot-probe` uses only fixed command-2 selector `16`, then
 command `3`, to retrieve the resident bootloader's fixed 4 KiB in-memory
 partition-table snapshot. It does not provide an address or storage selector
-and does not read NAND directly. Its static basis and safety analysis are in
-`docs/plans/2026-09-08-cb62-fixed-ptb-snapshot-read-audit.md`.
+and does not read NAND directly.
 The repository also contains fixed NAND-read experiments. The verified
 page-0 utility uploads one 1,200-byte AArch64 payload to fixed RAM address
 `0x02000000`, issues one fixed jump, and returns one 2,048-byte main area plus
